@@ -48,7 +48,7 @@ def get_random_extract(path: str | os.PathLike) -> List[str | os.PathLike]:
 
 
 def post_to_bluesky(
-    extract: List[str | os.pathLike],
+    extract: List[str | os.PathLike],
     login: str,
     password: str,
     base_url: str = "https://bsky.social/xrpc",
@@ -62,7 +62,7 @@ def post_to_bluesky(
 
 
 def post_to_mastodon(
-    extract: List[str | os.pathLike], base_url: str, access_token: str
+    extract: List[str | os.PathLike], base_url: str, access_token: str
 ):
     """Sends a post to Mastodon including media listed in extract"""
     client = mastodon.Mastodon(
