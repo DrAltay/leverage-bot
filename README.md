@@ -1,6 +1,6 @@
 # Leverage bot poster
 
-This is a simple Python script that posts a random set of images to Bluesky and Mastodon. 
+This is a simple Python script that posts a random set of images to Bluesky and Mastodon. See it in action on [@leverageooc.mas.to](https://mas.to/@LeverageOoc) and on [@leverageooc.bsky.social](https://leverageooc.bsky.social).
 
 ## Environment setup
 
