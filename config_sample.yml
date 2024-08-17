@@ -1,0 +1,8 @@
+bluesky:
+  login: "bluesky_login"
+  password: "bluesky_application_password"
+  # Create one here https://bsky.app/settings/app-passwords
+mastodon:
+  base_url: "base_url_to_your_instance"
+  access_token: "secret_acess_token"
+  # Create an access token here https://mas.to/settings/applications
