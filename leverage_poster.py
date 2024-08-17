@@ -7,10 +7,33 @@ import atproto
 import click
 import mastodon
 
+from typing import List
+
 logging.basicConfig(level=logging.INFO)
 
 
-def get_random_extract(path):
+def get_random_extract(path: str | os.PathLike) -> List[str | os.PathLike]:
+    """Returns a sorted list of paths to files that describe a single extract
+
+    This assumes the following structure in path
+        path
+        ├── folder1
+        │   ├── image1_from_folder1.jpg
+        │   └── image2.jpg
+        ├── folder2
+        │   ├── image1.jpg
+        │   ├── image2.jpg
+        │   └── image3.jpg
+        ├── ...
+        │   ├── ...
+        │   └── ...
+        ├── other_image_at_the_root.jpg
+        ├── ...
+        └── yet_another_image_at_the_root.pn
+
+        It will sample a random path in the first level paths, e.g. it can return
+        [path/other_image_at_the_root.jpg] or [path/folder1/image1.jpg, path/folder1/image2.jpg].
+    """
     all_extracts = os.listdir(path)
     random_extract = random.sample(all_extracts, 1)[0]
     path_to_random_extract = os.path.join(path, random_extract)
@@ -24,7 +47,13 @@ def get_random_extract(path):
         return [path_to_random_extract]
 
 
-def post_to_bluesky(extract, login, password, base_url="https://bsky.social/xrpc"):
+def post_to_bluesky(
+    extract: List[str | os.pathLike],
+    login: str,
+    password: str,
+    base_url: str = "https://bsky.social/xrpc",
+) -> None:
+    """Sends a post to Bluesky including media listed in extract"""
     client = atproto.Client(base_url=base_url)
     client.login(login=login, password=password)
     images = [open(path, "rb").read() for path in extract]
@@ -32,7 +61,10 @@ def post_to_bluesky(extract, login, password, base_url="https://bsky.social/xrpc
     logging.info(f"Sent {extract} to Bluesky at post {post.uri}")
 
 
-def post_to_mastodon(extract, base_url, access_token):
+def post_to_mastodon(
+    extract: List[str | os.pathLike], base_url: str, access_token: str
+):
+    """Sends a post to Mastodon including media listed in extract"""
     client = mastodon.Mastodon(
         api_base_url=base_url,
         access_token=access_token,
