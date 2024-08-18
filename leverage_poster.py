@@ -81,7 +81,7 @@ def post_to_mastodon(
 
 @click.command(help="Post a random set of images from FOLDER to social medias")
 @click.argument("folder", type=click.Path(exists=True), default="./images")
-@click.option("--config", type=click.Path(exists=True), default="./config.yml")
+@click.option("--config", "--conf", type=click.Path(exists=True), default="./config.yml")
 @click.option("--bluesky/--no-bluesky", default=True, help="Post to Bluesky")
 @click.option("--mastodon/--no-mastodon", default=True, help="Post to Mastodon")
 def post_random_extract(folder, bluesky=True, mastodon=True, config=None):
